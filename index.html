@@ -81,113 +81,81 @@
 
    <script>
 
-      // first mobile
-   
-   const iphoneMobilePlusButton = document.getElementById("iphoneMobilePlusButton");
-   const iphoneMobileMinusButton = document.getElementById("iphoneMobileMinusButton");
-
-   iphoneMobilePlusButton.addEventListener("click", function(){
-      const floatIphoneNumbers = getInputFloat("iphoneNumbers");
-      document.getElementById("iphoneNumbers").value = floatIphoneNumbers + 1;
-
-      const inputValue = document.getElementById("iphoneNumbers").value;
-      document.getElementById("iphoneCurrentPrice").innerText = parseFloat(1219) * parseFloat(inputValue );
-
-      // total stuff
-
-     const subtotalNum = getInnerFloat("Subtotal");
-     insertCalculate("Subtotal", "totalAmount",subtotalNum, 1219);
-     
-   });
-
-   iphoneMobileMinusButton.addEventListener("click", function(){
-       const floatIphoneNumbersMinus = getInputFloat("iphoneNumbers")
-       document.getElementById("iphoneNumbers").value = floatIphoneNumbersMinus - 1;
-      
-      const currentInnerFloatPrice  = getCurrentPrice("iphoneCurrentPrice");
-      const testPrice = document.getElementById("iphoneCurrentPrice").innerText;
-      document.getElementById("iphoneCurrentPrice").innerText = currentInnerFloatPrice - parseFloat(1219);
-          
-      // total stuff
-
-      const subtotalNum = getInnerFloat("Subtotal");
-      document.getElementById("Subtotal").innerText = subtotalNum - parseFloat(1219)  ;
-      document.getElementById("totalAmount").innerText = subtotalNum - parseFloat(1219);
-
-
-   });
-
-
-   // mobile cover
-
-const coverMinusButton = document.getElementById("coverMinusButton");
 const coverPlusButton = document.getElementById("coverPlusButton");
+const coverMinusButton = document.getElementById("coverMinusButton");
 
 coverPlusButton.addEventListener("click", function(){
-   const floatCoverNumbers = getInputFloat("coverNumbers");
-   document.getElementById("coverNumbers").value = floatCoverNumbers + 1; 
-   const inputValue = document.getElementById("coverNumbers").value;
-      document.getElementById("coverCurrentPrice").innerText = parseFloat(59) * parseFloat(inputValue); 
 
-      // total stuff
-
-      const subtotalNum = getInnerFloat("Subtotal");
-      insertCalculate("Subtotal", "totalAmount",subtotalNum, 59);
+   add("coverNumbers");
+   price("coverCurrentPrice", 59);
+   totalAmount("Subtotal", "totalAmount", 59)
 
 })
 
 coverMinusButton.addEventListener("click", function(){
-
-   const floatIphoneNumbersMinus = getInputFloat("coverNumbers")
-       document.getElementById("coverNumbers").value = floatIphoneNumbersMinus - 1;
-      
-      const currentInnerFloatPrice  = getCurrentPrice("coverCurrentPrice");
-      document.getElementById("coverCurrentPrice").innerText = currentInnerFloatPrice - parseFloat(59);
-      // total stuff
-
-      const subtotalNum = getInnerFloat("Subtotal");
-      document.getElementById("Subtotal").innerText = subtotalNum - parseFloat(59)  ;
-      document.getElementById("totalAmount").innerText = subtotalNum - parseFloat(59);
+   
+   substraction("coverNumbers");
+   price("coverCurrentPrice", -59)
+   totalAmount("Subtotal", "totalAmount", -59)
+   
 
 })
 
 
-// function for total
+const iphoneMobilePlusButton = document.getElementById("iphoneMobilePlusButton");
+const iphoneMobileMinusButton = document.getElementById("iphoneMobileMinusButton");
+
+iphoneMobilePlusButton.addEventListener("click", function(){
+    add("iphoneNumbers");
+    price("iphoneCurrentPrice", 1219)
+    totalAmount("Subtotal", "totalAmount", 1219)
+
+})
+
+
+iphoneMobileMinusButton.addEventListener("click", function(){
+   substraction("iphoneNumbers");
+   price("iphoneCurrentPrice", -1219)
+   totalAmount("Subtotal", "totalAmount", -1219)
+
+})
 
 
 
 
 
-function insertCalculate(id1, id2, subtotalNum, num){
-   document.getElementById(id1).innerText = subtotalNum + parseFloat(num)  ;
-      document.getElementById(id2).innerText = subtotalNum + parseFloat(num);
+
+function add(id){
+   let numbers = document.getElementById(id).value;
+    let intNum = parseInt(numbers);
+    document.getElementById(id).value = intNum + 1;
 }
 
-function getInnerFloat(id){
-      const Subtotal = document.getElementById(id).innerText;
-      const subtotalNum = parseFloat(Subtotal);
-      return subtotalNum;
+
+
+function substraction(id){ 
+
+    let numbers = document.getElementById(id).value;
+    let intNum = parseInt(numbers);
+    document.getElementById(id).value = intNum - 1;
 }
 
 
-   // function for prices
+function price(id, price){
+   const currentPrice = document.getElementById(id).innerText;
+   const currentIntPrice = parseInt(currentPrice);
+   document.getElementById(id).innerText = currentIntPrice + price;
+}
 
 
-   function getCurrentPrice(id){
-   
-      const currentInnerPrice = document.getElementById(id).innerText;
-      const currentInnerFloatPrice = parseFloat(currentInnerPrice);
-      return currentInnerFloatPrice;
 
-   }
+function totalAmount(id1, id2, amount){
+   const Subtotal = document.getElementById(id1).innerText;
+   const subTotalInt = parseInt(Subtotal);
+   document.getElementById(id1).innerText = subTotalInt + amount;
+   document.getElementById(id2).innerText = subTotalInt + amount;
+}
 
-   // function for input
-
-   function getInputFloat(id){
-      let iphoneNumbers = document.getElementById(id).value;
-      let floatNumbers = parseFloat(iphoneNumbers);
-      return floatNumbers;
-   }
 
 
    </script>
