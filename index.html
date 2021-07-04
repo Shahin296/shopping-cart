@@ -25,11 +25,11 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="iphoneMobileMinusButton"  class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="iphoneNumbers" type="text" class="form-control text-center" value="1">
+                           <button id="iphoneMobilePlusButton" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$1219</h5>
+                        <h5>$ <span id="iphoneCurrentPrice">1219</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -43,12 +43,12 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="coverMinusButton" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="coverNumbers" type="text" class="form-control text-center" value="1">
+                           <button id="coverPlusButton" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$59</h5>
+                        <h5>$ <span id="coverCurrentPrice">59</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -64,9 +64,9 @@
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
+                        <h5>$ <span id="Subtotal">1278</span></h5>
                         <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5>$ <span id="totalAmount">1278</span></h5>
                      </div>
                   </div>
                </div>
@@ -77,6 +77,120 @@
          </div>
       </div>
    </section>
+
+
+   <script>
+
+      // first mobile
+   
+   const iphoneMobilePlusButton = document.getElementById("iphoneMobilePlusButton");
+   const iphoneMobileMinusButton = document.getElementById("iphoneMobileMinusButton");
+
+   iphoneMobilePlusButton.addEventListener("click", function(){
+      const floatIphoneNumbers = getInputFloat("iphoneNumbers");
+      document.getElementById("iphoneNumbers").value = floatIphoneNumbers + 1;
+
+      const inputValue = document.getElementById("iphoneNumbers").value;
+      document.getElementById("iphoneCurrentPrice").innerText = parseFloat(1219) * parseFloat(inputValue );
+
+      // total stuff
+
+     const subtotalNum = getInnerFloat("Subtotal");
+     insertCalculate("Subtotal", "totalAmount",subtotalNum, 1219);
+     
+   });
+
+   iphoneMobileMinusButton.addEventListener("click", function(){
+       const floatIphoneNumbersMinus = getInputFloat("iphoneNumbers")
+       document.getElementById("iphoneNumbers").value = floatIphoneNumbersMinus - 1;
+      
+      const currentInnerFloatPrice  = getCurrentPrice("iphoneCurrentPrice");
+      const testPrice = document.getElementById("iphoneCurrentPrice").innerText;
+      document.getElementById("iphoneCurrentPrice").innerText = currentInnerFloatPrice - parseFloat(1219);
+          
+      // total stuff
+
+      const subtotalNum = getInnerFloat("Subtotal");
+      document.getElementById("Subtotal").innerText = subtotalNum - parseFloat(1219)  ;
+      document.getElementById("totalAmount").innerText = subtotalNum - parseFloat(1219);
+
+
+   });
+
+
+   // mobile cover
+
+const coverMinusButton = document.getElementById("coverMinusButton");
+const coverPlusButton = document.getElementById("coverPlusButton");
+
+coverPlusButton.addEventListener("click", function(){
+   const floatCoverNumbers = getInputFloat("coverNumbers");
+   document.getElementById("coverNumbers").value = floatCoverNumbers + 1; 
+   const inputValue = document.getElementById("coverNumbers").value;
+      document.getElementById("coverCurrentPrice").innerText = parseFloat(59) * parseFloat(inputValue); 
+
+      // total stuff
+
+      const subtotalNum = getInnerFloat("Subtotal");
+      insertCalculate("Subtotal", "totalAmount",subtotalNum, 59);
+
+})
+
+coverMinusButton.addEventListener("click", function(){
+
+   const floatIphoneNumbersMinus = getInputFloat("coverNumbers")
+       document.getElementById("coverNumbers").value = floatIphoneNumbersMinus - 1;
+      
+      const currentInnerFloatPrice  = getCurrentPrice("coverCurrentPrice");
+      document.getElementById("coverCurrentPrice").innerText = currentInnerFloatPrice - parseFloat(59);
+      // total stuff
+
+      const subtotalNum = getInnerFloat("Subtotal");
+      document.getElementById("Subtotal").innerText = subtotalNum - parseFloat(59)  ;
+      document.getElementById("totalAmount").innerText = subtotalNum - parseFloat(59);
+
+})
+
+
+// function for total
+
+
+
+
+
+function insertCalculate(id1, id2, subtotalNum, num){
+   document.getElementById(id1).innerText = subtotalNum + parseFloat(num)  ;
+      document.getElementById(id2).innerText = subtotalNum + parseFloat(num);
+}
+
+function getInnerFloat(id){
+      const Subtotal = document.getElementById(id).innerText;
+      const subtotalNum = parseFloat(Subtotal);
+      return subtotalNum;
+}
+
+
+   // function for prices
+
+
+   function getCurrentPrice(id){
+   
+      const currentInnerPrice = document.getElementById(id).innerText;
+      const currentInnerFloatPrice = parseFloat(currentInnerPrice);
+      return currentInnerFloatPrice;
+
+   }
+
+   // function for input
+
+   function getInputFloat(id){
+      let iphoneNumbers = document.getElementById(id).value;
+      let floatNumbers = parseFloat(iphoneNumbers);
+      return floatNumbers;
+   }
+
+
+   </script>
 </body>
 
 </html>
